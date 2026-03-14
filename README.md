@@ -1,13 +1,13 @@
 # DeceptGuard: Constitutional Oversight Framework for Detecting Deception in LLM Agents
 
-[![Tests](https://img.shields.io/badge/tests-40%20passed-brightgreen)](tests/)
+
 [![pAUROC](https://img.shields.io/badge/Hybrid%20pAUROC-0.934-blue)](src/benchmark/)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://python.org)
 
 Implementation of the DECEPTGUARD framework from:
 
 > **DeceptGuard: A Constitutional Oversight Framework for Detecting Deception in LLM Agents**
-> Snehasis Mukhopadhyay · Indian Institute of Information Technology Kalyani
+
 
 ---
 
@@ -139,13 +139,6 @@ This framework is intended exclusively for **defensive applications** — detect
 behavior in AI agents to improve safety. Deceptive agent prompts from DECEPTSYNTH are not
 released. All evaluation was conducted in isolated sandbox environments.
 
-## Citation
 
-```bibtex
-@article{mukhopadhyay2025deceptguard,
-  title={DeceptGuard: A Constitutional Oversight Framework for Detecting Deception in LLM Agents},
-  author={Mukhopadhyay, Snehasis},
-  institution={Indian Institute of Information Technology Kalyani},
-  year={2025}
 }
 ```
