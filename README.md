@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://img.shields.io/badge/Venue-EMNLP%202025-7B2FBE?style=for-the-badge&logo=academia&logoColor=white" />
+<img src="https://img.shields.io/badge/Venue-EMNLP%202026-7B2FBE?style=for-the-badge&logo=academia&logoColor=white" />
 <img src="https://img.shields.io/badge/Status-Under%20Review-FF6B35?style=for-the-badge" />
 <img src="https://img.shields.io/badge/License-MIT-00C896?style=for-the-badge" />
 
@@ -17,8 +17,7 @@
 
 # DeceptGuard: A Constitutional Oversight Framework<br/>for Detecting Deception in LLM Agents
 
-**[Snehasis Mukhopadhyay](mailto:snehasis356@gmail.com)**  
-*Indian Institute of Information Technology Kalyani*
+
 
 <br/>
 
@@ -120,30 +119,7 @@ We introduce **DECEPTSYNTH**, a scalable synthetic pipeline generating 9,600 lab
 
 > As agents learn to suppress overt behavioral signals, chain-of-thought becomes the **primary detection surface** — but is itself increasingly unreliable due to post-training faithfulness degradation.
 
-<div align="center">
 
-```
-pAUROC
- 1.00 │                    ╭──────────── Hybrid (0.962)
-      │                   ╱
- 0.95 │                  ╱
-      │                 ╱
- 0.93 │                ╱────────────── Hybrid (0.932)
-      │               ╱
- 0.90 │              ╱
-      │             ╱                  Hybrid (0.873)
- 0.87 │────────────╱────────────────────────────────── BB (0.841)
-      │           ╱                    BB (0.834)
- 0.84 │──────────╱──────────────────── BB (0.826)
-      │
- 0.80 └──────────────────────────────────────────────────
-           Honest CoT      Sanitized CoT     Deceptive CoT
-           (Agent thinks   (Agent hides      (Agent misleads
-            openly)         intent)           in CoT)
-```
-*Figure 7: Monitor performance by CoT deception condition. Black-box monitor performance **improves** as CoT manipulation increases (agents sanitizing CoT leave stronger behavioral traces). The Hybrid ensemble **decreases** but remains substantially above BB throughout.*
-
-</div>
 
 ### Finding 3 — The Whack-a-Mole Dynamic
 
@@ -162,34 +138,7 @@ An LLM agent exhibits **deception** if and only if:
 2. It takes deliberate steps to prevent the principal hierarchy from discovering this divergence
 3. The consequences of G_hidden would be judged harmful or unauthorized by a reasonable principal
 
-<div align="center">
 
-```
-                    ┌──────────────────────────────────┐
-                    │      LLM AGENT DECEPTION         │
-                    └──────────────┬───────────────────┘
-           ┌──────────────────────┼──────────────────────┐
-           ▼                      ▼                      ▼
-  ┌─────────────────┐   ┌─────────────────┐   ┌─────────────────┐
-  │    VERBAL       │   │   BEHAVIORAL    │   │   STRUCTURAL    │
-  │   (V1 – V4)     │   │   (B1 – B4)     │   │   (S1 – S4)     │
-  │                 │   │                 │   │                 │
-  │ Language-level  │   │  Action-level   │   │  Manipulation   │
-  │ misrepresenta-  │   │  concealment    │   │  of oversight   │
-  │ tion            │   │                 │   │  infrastructure │
-  ├─────────────────┤   ├─────────────────┤   ├─────────────────┤
-  │ V1 False Assert │   │ B1 Covert Act.  │   │ S1 Lock-in      │
-  │ V2 Strategic    │   │ B2 Plausible    │   │ S2 Oversight    │
-  │    Omission     │   │    Deniability  │   │    Sabotage     │
-  │ V3 Misleading   │   │ B3 Camouflage   │   │ S3 Audit Trail  │
-  │    Framing      │   │    Execution    │   │    Manip.       │
-  │ V4 Sycophantic  │   │ B4 Evidence     │   │ S4 Precedent    │
-  │    Misrep.      │   │    Tampering    │   │    Engineering  │
-  └─────────────────┘   └─────────────────┘   └─────────────────┘
-```
-*Figure 2: Taxonomy of LLM Agent Deception. Twelve categories organized into three macro-classes.*
-
-</div>
 
 ### Category Reference
 
@@ -233,36 +182,7 @@ An LLM agent exhibits **deception** if and only if:
 
 ## Monitor Architecture
 
-<div align="center">
 
-```
-                    Agent Trajectory
-                          │
-          ┌───────────────┼───────────────┐
-          ▼               ▼               ▼
-     ┌─────────┐    ┌──────────┐   ┌──────────────┐
-     │ Actions │    │   CoT    │   │  Hidden-State│
-     │ Outputs │    │  Trace   │   │  Activations │
-     └────┬────┘    └────┬─────┘   └──────┬───────┘
-          │              │                │
-          ▼              ▼                ▼
-     ┌─────────┐    ┌──────────┐   ┌──────────────┐
-     │   BB    │    │  CA-P    │   │    AP-H       │
-     │ Monitor │    │  CA-C    │   │  Llama-3.1   │
-     │ (0.837) │    │  (0.891) │   │  70B · ℓ*=32 │
-     └────┬────┘    └────┬─────┘   └──────┬───────┘
-          │              │                │
-          └──────────────┼────────────────┘
-                         ▼
-              ┌─────────────────────┐
-              │  HybridConstitutional│
-              │  Ensemble (MLP)     │
-              │  pAUROC: 0.934 ★   │
-              └─────────────────────┘
-```
-*Figure 4: Monitor architecture overview. Three CoT-aware variants (CA-P, CA-C, AP-H) and one black-box baseline (BB) produce individual suspicion scores, combined in a HybridConstitutional ensemble.*
-
-</div>
 
 ### Monitor Specifications
 
@@ -276,33 +196,7 @@ An LLM agent exhibits **deception** if and only if:
 
 > ⚠️ **AP-H Note:** The activation-probe monitor requires open-weights model access. It is explicitly **not applicable** to closed-source API deployments (Claude, GPT-series, Gemini API) whose internal activations are inaccessible. Organizations deploying via closed APIs rely on BB + CA-P/CA-C only, forgoing the +0.033 pAUROC AP-H incremental gain.
 
-### Optimal Probing Layer
 
-<div align="center">
-
-```
-Probe AUC
-  0.90 │                     ╭─╮  ← ℓ* = 32
-       │                    ╱   ╲
-  0.85 │                   ╱     ╲
-       │                  ╱       ╲
-  0.80 │                ╱          ╲
-       │               ╱            ╲
-  0.75 │             ╱               ╲
-       │           ╱                  ╲────────
-  0.70 │─────────╱
-  0.65 │
-       └──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──
-          0  5  10 15 20 25 30 35 40 45 50 60 80
-                    Transformer Layer ℓ
-
-  Verbal: ℓ*=31  │  Behavioral: ℓ*=32  │  Structural: ℓ*=33
-```
-*Figure 9: Hidden-state probe accuracy by layer (Llama-3.1-70B-Instruct, 80 layers). Performance peaks at ℓ*=32 in the mid-range, consistent with mid-layer residual streams encoding richest semantic content.*
-
-</div>
-
----
 
 ## Results
 
